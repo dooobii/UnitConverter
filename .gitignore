@@ -4,6 +4,8 @@
 #Makefile
 Makefile
 
+.idea
+
 # Prerequisites
 *.d
 

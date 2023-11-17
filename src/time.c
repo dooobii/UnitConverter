@@ -77,7 +77,7 @@ int printConvert(float value, enum TimeUnit unit) {
 
 int main(int argc, char *argv[]) {
     float value;
-    char *unit;
+    char unit[100];
     printf("Enter a value: ");
     scanf("%f", &value);
 

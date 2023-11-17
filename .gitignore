@@ -1,3 +1,9 @@
+#Git ignore
+.gitignore
+
+#Makefile
+Makefile
+
 # Prerequisites
 *.d
 
@@ -9,7 +15,7 @@
 
 # Linker output
 *.ilk
-*.map
+.map
 *.exp
 
 # Precompiled Headers

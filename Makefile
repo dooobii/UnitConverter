@@ -1,13 +1,22 @@
-CC=gcc
 
-SRC = src/time.c
-BIN = src/time
+CC := gcc
+CFLAGS := -std=c99 -Isrc
 
-all: ${BIN}
+SRCDIR := src
 
-BIN: ${SRC}
+SRCS := $(wildcard $(SRCDIR)/*.c)
+
+OBJS := $(SRCS:$(SRCDIR)/%.c=%.o)
+
+TARGET := time
+
+all: ./$(TARGET)
+
+$(BINDIR)/$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $^
+
+%.o: $(SRCDIR)/%.c
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	${RM} *.o ${BIN}
-
-.PHONY: all, clean
+	rm -f $(OBJS) ./$(TARGET)

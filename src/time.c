@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 
@@ -78,24 +79,27 @@ int printConvert(float value, enum TimeUnit unit) {
 int main(int argc, char *argv[]) {
     float value;
     char unit[100];
-    printf("Enter a value: ");
-    scanf("%f", &value);
 
-    while (value < 0) {
-        printf("Value must be positive\n");
-        printf("Enter a value: ");
-        scanf("%f", &value);
+    if (argc != 4) {
+        printf("Usage is : <time> <value> <unit>\n");
+        return 1;
     }
 
-    printf("Enter a unit (ex: second, day, hour): ");
-    scanf("%s", unit);
+    char *endptr;
+    value = strtod(argv[2], &endptr);
+    // Check for conversion errors
+    if (*endptr != '\0') {
+        printf("Error: Invalid float value '%s'\n", argv[2]);
+        return 1;
+    }
+    strcpy(unit, argv[3]);
 
     enum TimeUnit newUnit = stringToUnit(unit);
-    while (newUnit == INVALID_UNIT) {
-        printf("Enter a unit (ex: second, day, hour): ");
-        scanf("%s", unit);
-        newUnit = stringToUnit(unit);
+    if (newUnit == INVALID_UNIT) {
+        printf("Error: Invalid unit value '%s'\n", argv[3]);
+        return 1;
     }
 
-    return printConvert(value,newUnit);
+    return printConvert(value, newUnit);
+    return 0;
 }
